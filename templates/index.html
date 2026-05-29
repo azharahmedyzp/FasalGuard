@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FasalGuard — Advanced Plant Health Diagnostics</title>
+    <!-- Google Fonts: Plus Jakarta Sans for a sleek, modern, premium UI look -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="app-wrapper">
+        <!-- Navigation -->
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="logo" id="appLogo">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="logo-svg">
+                        <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 3.5 1 9.8A7 7 0 0 1 11 20z"></path>
+                        <path d="M19 2c-2.26 4.33-5.27 7.14-8 10"></path>
+                    </svg>
+                    <span class="logo-text">FasalGuard</span>
+                </div>
+                <div class="nav-controls">
+                    <button class="nav-btn theme-toggle" id="themeToggle" title="Toggle dark mode">
+                        <!-- Sun Icon (visible in dark mode) -->
+                        <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="4"></circle>
+                            <path d="M12 2v2"></path>
+                            <path d="M12 20v2"></path>
+                            <path d="m4.93 4.93 1.41 1.41"></path>
+                            <path d="m17.66 17.66 1.41 1.41"></path>
+                            <path d="M2 12h2"></path>
+                            <path d="M20 12h2"></path>
+                            <path d="m6.34 17.66-1.41 1.41"></path>
+                            <path d="m19.07 4.93-1.41 1.41"></path>
+                        </svg>
+                        <!-- Moon Icon (visible in light mode) -->
+                        <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+                        </svg>
+                    </button>
+                    <button class="nav-btn history-btn" id="historyBtn" title="View history">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polyline points="12 6 12 12 16 14"></polyline>
+                        </svg>
+                    </button>
+                    <button class="nav-btn info-btn" id="infoBtn" title="Information">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <path d="M12 16v-4"></path>
+                            <path d="M12 8h.01"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="badge">Agro-AI Platform</div>
+                <h1>Plant Health Diagnostics</h1>
+                <p class="subtitle">Deep learning classification system for visual foliage analysis</p>
+            </div>
+            <div class="health-badge" id="healthBadge">
+                <span class="status-dot"></span>
+                <span id="healthText" class="health-text">Checking server...</span>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="content-wrapper">
+            <!-- Tabs -->
+            <div class="tabs">
+                <button class="tab-button active" data-tab="upload">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tab-icon">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="17 8 12 3 7 8"></polyline>
+                        <line x1="12" x2="12" y1="3" y2="15"></line>
+                    </svg>
+                    <span>Upload Foliage</span>
+                </button>
+                <button class="tab-button" data-tab="camera">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tab-icon">
+                        <path d="M23 7a2 2 0 0 0-2.45-1.45L16 7V5a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2l4.55 1.45A2 2 0 0 0 23 17V7z"></path>
+                    </svg>
+                    <span>Live Field Feed</span>
+                </button>
+                <button class="tab-button" data-tab="compare">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tab-icon">
+                        <rect width="18" height="18" x="3" y="3" rx="2"></rect>
+                        <path d="M12 3v18"></path>
+                    </svg>
+                    <span>Batch Comparison</span>
+                </button>
+            </div>
+
+            <!-- Upload Tab -->
+            <div class="tab-content active" id="upload-tab">
+                <div class="upload-section">
+                    <div class="upload-area" id="uploadArea">
+                        <div class="upload-icon-container">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="upload-svg">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="17 8 12 3 7 8"></polyline>
+                                <line x1="12" x2="12" y1="3" y2="15"></line>
+                            </svg>
+                        </div>
+                        <h2>Upload Plant Image</h2>
+                        <p class="upload-text">Drag and drop high-resolution plant image or click to browse</p>
+                        <span class="file-limits">Supports JPEG, PNG, WEBP, GIF (Max 16MB)</span>
+                        <input type="file" id="fileInput" accept=".png,.jpg,.jpeg,.gif,.webp" hidden>
+                    </div>
+                    <button class="btn btn-primary" id="selectFileBtn">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="btn-svg">
+                            <rect width="18" height="18" x="3" y="3" rx="2" ry="2"></rect>
+                            <circle cx="9" cy="9" r="2"></circle>
+                            <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"></path>
+                        </svg>
+                        <span>Select File</span>
+                    </button>
+                </div>
+
+                <div class="preview-section" id="previewSection" style="display: none;">
+                    <div class="preview-container">
+                        <div class="preview-frame">
+                            <img id="previewImage" alt="Preview" class="preview-image">
+                        </div>
+                        <div class="image-info" id="imageInfo"></div>
+                        <button class="btn btn-secondary" id="clearPreviewBtn">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="btn-svg">
+                                <path d="M3 6h18"></path>
+                                <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
+                                <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
+                            </svg>
+                            <span>Clear Selection</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Camera Tab -->
+            <div class="tab-content" id="camera-tab">
+                <div class="camera-section">
+                    <div class="camera-feed-container">
+                        <video id="cameraVideo" class="camera-video" playsinline></video>
+                        <div class="camera-overlay-reticle"></div>
+                        <canvas id="cameraCanvas" style="display: none;"></canvas>
+                    </div>
+                    
+                    <div class="camera-controls">
+                        <button class="btn btn-primary" id="startCameraBtn">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="btn-svg">
+                                <path d="M23 7a2 2 0 0 0-2.45-1.45L16 7V5a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2l4.55 1.45A2 2 0 0 0 23 17V7z"></path>
+                            </svg>
+                            <span>Initialize Feed</span>
+                        </button>
+                        <button class="btn btn-danger" id="stopCameraBtn" style="display: none;">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="btn-svg">
+                                <rect width="18" height="18" x="3" y="3" rx="2" ry="2"></rect>
+                            </svg>
+                            <span>Terminate Feed</span>
+                        </button>
+                        <button class="btn btn-success" id="captureBtn" style="display: none;">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="btn-svg">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <circle cx="12" cy="12" r="3"></circle>
+                            </svg>
+                            <span>Capture & Analyze</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Compare Tab -->
+            <div class="tab-content" id="compare-tab">
+                <div class="compare-section">
+                    <h2>Compare Multiple Images</h2>
+                    <p class="compare-hint">Select or drag up to 4 files to perform comparative health assessments</p>
+                    <div class="upload-area" id="compareArea">
+                        <div class="upload-icon-container">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="upload-svg">
+                                <rect width="18" height="18" x="3" y="3" rx="2" ry="2"></rect>
+                                <circle cx="9" cy="9" r="2"></circle>
+                                <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"></path>
+                            </svg>
+                        </div>
+                        <h3>Add Images to Compare</h3>
+                        <p class="upload-text">Drop files here or click to select</p>
+                        <input type="file" id="compareFileInput" accept=".png,.jpg,.jpeg,.gif,.webp" multiple hidden>
+                    </div>
+                    <button class="btn btn-primary" id="selectCompareBtn">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="btn-svg">
+                            <path d="M5 12h14"></path>
+                            <path d="M12 5v14"></path>
+                        </svg>
+                        <span>Select Images</span>
+                    </button>
+                    <div id="comparePreviewsContainer" class="compare-previews" style="display: none;"></div>
+                </div>
+            </div>
+
+            <!-- Results Section -->
+            <div class="results-section" id="resultsSection" style="display: none;">
+                <div class="results-header">
+                    <h2>Diagnostics Outcome</h2>
+                    <div class="result-actions">
+                        <button class="btn btn-small btn-secondary" id="downloadBtn" title="Download report">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="btn-small-svg">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7 10 12 15 17 10"></polyline>
+                                <line x1="12" x2="12" y1="15" y2="3"></line>
+                            </svg>
+                            <span>Download Report</span>
+                        </button>
+                        <button class="btn btn-small btn-secondary" id="shareBtn" title="Share result">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="btn-small-svg">
+                                <circle cx="18" cy="5" r="3"></circle>
+                                <circle cx="6" cy="12" r="3"></circle>
+                                <circle cx="18" cy="19" r="3"></circle>
+                                <line x1="8.59" x2="15.42" y1="13.51" y2="17.49"></line>
+                                <line x1="15.41" x2="8.59" y1="6.51" y2="10.49"></line>
+                            </svg>
+                            <span>Share</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="results-container">
+                    <div class="prediction-result">
+                        <div class="prediction-item top-prediction">
+                            <div class="prediction-label">Primary Pathology Classifier</div>
+                            <div class="top-pred-header">
+                                <div class="prediction-name" id="topLabel">-</div>
+                                <div class="severity-badge" id="severityBadge"></div>
+                            </div>
+                            <div class="confidence-bar">
+                                <div class="confidence-fill" id="topConfidence" style="width: 0%"></div>
+                            </div>
+                            <div class="confidence-text-container">
+                                <span class="confidence-sublabel">Diagnostic Confidence</span>
+                                <div class="confidence-text" id="topConfidenceText">0%</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="all-predictions">
+                        <h3>Full Probability Profile</h3>
+                        <div id="predictionsList" class="predictions-list"></div>
+                    </div>
+
+                    <div class="info-box recommendation-box">
+                        <div class="info-box-header">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-box-icon">
+                                <path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .6 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"></path>
+                                <path d="M9 18h6"></path>
+                                <path d="M10 22h4"></path>
+                            </svg>
+                            <h4>Recommendation Details</h4>
+                        </div>
+                        <p id="recommendation">Consult with a plant pathologist for accurate diagnosis and treatment options.</p>
+                    </div>
+
+                    <div class="disease-info-box" id="diseaseInfoBox" style="display: none;">
+                        <div class="info-box-header">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-box-icon">
+                                <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"></path>
+                                <path d="M6 6h10"></path>
+                                <path d="M6 10h10"></path>
+                            </svg>
+                            <h4>Scientific Context</h4>
+                        </div>
+                        <div id="diseaseInfo"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Loading Spinner -->
+            <div class="loading" id="loadingSpinner" style="display: none;">
+                <div class="spinner-outer">
+                    <div class="spinner"></div>
+                </div>
+                <p id="loadingText">Analyzing plant image...</p>
+            </div>
+
+            <!-- Error Message -->
+            <div class="error-message" id="errorMessage" style="display: none;"></div>
+
+            <!-- Success Message -->
+            <div class="success-message" id="successMessage" style="display: none;"></div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2026 FasalGuard Diagnostics Platform | Scientific Classification Model</p>
+        </footer>
+
+        <!-- Modals -->
+        <!-- History Modal -->
+        <div class="modal" id="historyModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Analysis History</h2>
+                    <button class="modal-close" id="closeHistoryBtn">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="close-svg">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="historyList" class="history-list"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Info Modal -->
+        <div class="modal" id="infoModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>About FasalGuard</h2>
+                    <button class="modal-close" id="closeInfoBtn">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="close-svg">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h3>Features</h3>
+                    <ul class="features-list">
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="modal-list-icon">
+                                <rect width="18" height="18" x="3" y="3" rx="2" ry="2"></rect>
+                                <circle cx="9" cy="9" r="2"></circle>
+                                <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"></path>
+                            </svg>
+                            <div>
+                                <strong>High-Resolution Uploads</strong>
+                                <span>Seamless drag-and-drop mechanics supporting all major web formats</span>
+                            </div>
+                        </li>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="modal-list-icon">
+                                <path d="M23 7a2 2 0 0 0-2.45-1.45L16 7V5a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2l4.55 1.45A2 2 0 0 0 23 17V7z"></path>
+                            </svg>
+                            <div>
+                                <strong>Live Field Imaging</strong>
+                                <span>Real-time environmental camera captures with overlay targets</span>
+                            </div>
+                        </li>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="modal-list-icon">
+                                <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>
+                                <path d="M12 16v-4"></path>
+                                <path d="M8 12h8"></path>
+                            </svg>
+                            <div>
+                                <strong>Vision Transformer Pipeline</strong>
+                                <span>Advanced state-of-the-art Google ViT (Vision Transformer) fine-tuning</span>
+                            </div>
+                        </li>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="modal-list-icon">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <circle cx="12" cy="12" r="6"></circle>
+                                <circle cx="12" cy="12" r="2"></circle>
+                            </svg>
+                            <div>
+                                <strong>Scientific Disease Analysis</strong>
+                                <span>Pinpoint classification with detailed confidence levels</span>
+                            </div>
+                        </li>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="modal-list-icon">
+                                <path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .6 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"></path>
+                                <path d="M9 18h6"></path>
+                                <path d="M10 22h4"></path>
+                            </svg>
+                            <div>
+                                <strong>Treatment Recommendations</strong>
+                                <span>Automated field guides and actionable pathological remedies</span>
+                            </div>
+                        </li>
+                    </ul>
+                    <h3>Foliage Imaging Best Practices</h3>
+                    <ul class="best-practices-list">
+                        <li>Ensure leaves are well-lit and in sharp optical focus.</li>
+                        <li>Center the infected or symptomatic sections of the leaf.</li>
+                        <li>Avoid high motion blur, shadow cast, or direct solar glare.</li>
+                        <li>Capture images using natural, diffused lighting where possible.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Overlay -->
+        <div class="modal-overlay" id="modalOverlay"></div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
